@@ -1,0 +1,64 @@
+<script type="text/javascript">
+			$(function(){
+				//获取userId
+				var userId=getCookie("userId");
+				//alert(userId);
+				  //发送ajax请求
+					$.ajax({
+						url:path+"/book/loadbooks.do",
+						type:"post",
+						data:{"userId":userId},
+						dataType:"json",
+						success:function(result){
+							//判断查询是否成功
+							if(result.status==0){
+								//获取笔记本集合
+								var books=result.data;
+								for(var i=0;i<books.length;i++){
+									//获取笔记本ID
+									var bookId=books[i].cn_notebook_id;
+									//获取笔记本名称
+									var bookName=books[i].cn_notebook_name;
+									//创建一个笔记本列表的li元素
+									var sli="";
+									sli+='<option>- ';
+									sli+=bookName;
+									sli+=' -</option>';
+									
+									var $li=$(sli);
+									$li.data("bookId",bookId);
+									//将li元素添加到笔记本列表book_ul
+									$("#replaySelect").append($li);
+								}
+							}
+						},
+						error:function(){
+							alert("笔记本加载失败");
+						}
+					});
+			});
+			</script>
+			<div class="modal fade in" id="modalBasic_3" tabindex="-1" role="dialog" aria-labelledby="modalBasicLabel" aria-hidden="false">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h4 class="modal-title" id="modalBasicLabel_3">恢复笔记</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+                                <label class="col-sm-3 control-label" for="input" style='margin-top:5px;'>恢复至</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="replaySelect">
+                                        <option>- 默认笔记本 -</option>
+                                    </select>
+                                </div>
+                            </div>
+						</div>
+						<div class="modal-footer" style='margin-top:20px;'>
+							<button type="button" class="btn btn-default cancle" data-dismiss="modal">取 消</button>
+							<button type="button" class="btn btn-primary sure" id="replay">恢 复</button>
+						</div>
+					</div>
+				</div>
+			</div>

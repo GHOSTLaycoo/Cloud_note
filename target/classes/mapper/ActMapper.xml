@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Dept.xml 在com.tarena.entity 包中  -->  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.cloud_note.dao.ActDao">
+	<select id="loadActivity" resultType="cn.tedu.cloud_note.entity.Activity">
+		select * from cn_activity
+	</select>
+	<select id="loadActNote" parameterType="Map" resultType="cn.tedu.cloud_note.entity.Act">
+		select * from cn_note_activity where cn_activity_id=#{ActivityId} limit #{begin},3
+	</select>
+	<select id="checkBody" parameterType="String" resultType="cn.tedu.cloud_note.entity.Act">
+		select * from cn_note_activity where cn_note_activity_id=#{ActId}
+	</select>
+	<select id="checkActNote" parameterType="Map" resultType="cn.tedu.cloud_note.entity.Act">
+		select * from cn_note_activity where cn_activity_id=#{ActivityId} and cn_note_id=#{noteId}
+	</select>
+	
+	<insert id="addActNote" parameterType="cn.tedu.cloud_note.entity.Act">
+		insert into cn_note_activity(
+					cn_note_activity_id,
+					cn_activity_id,
+					cn_note_id,
+					cn_note_activity_up,
+					cn_note_activity_down,
+					cn_note_activity_title,
+					cn_note_activity_body) 
+				values(
+					#{cn_note_activity_id},
+					#{cn_activity_id},
+					#{cn_note_id},
+					#{cn_note_activity_up},
+					#{cn_note_activity_down},
+					#{cn_note_activity_title},
+					#{cn_note_activity_body}
+					)
+	</insert>
+</mapper>
+
+
+
+
+
+
+

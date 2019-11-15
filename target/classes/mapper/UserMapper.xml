@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Dept.xml 在com.tarena.entity 包中  -->  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.cloud_note.dao.UserDao">
+	<!-- 与Dao接口中的方法名一致 -->
+	<!-- 参数类型 -->
+	<select id="findByName"  
+	 		parameterType="string"    
+	 		resultType="cn.tedu.cloud_note.entity.User"><!-- 返回类型 -->
+			select * from cn_user where cn_user_name=#{name}
+	</select>
+	<insert id="save" 
+			parameterType="cn.tedu.cloud_note.entity.User">
+			insert into cn_user(
+					cn_user_id,
+					cn_user_name,
+					cn_user_password,
+					cn_user_nick,
+					cn_user_token) 
+					values(#{cn_user_id},
+					#{cn_user_name},
+					#{cn_user_password},
+					#{cn_user_nick},
+					#{cn_user_token})
+	</insert>
+	
+	<update id="updatepassword"  
+	 		parameterType="Map"><!-- 返回类型 -->
+	 		update cn_user set cn_user_password=#{md5Password} where cn_user_id=#{userId}
+	</update>
+</mapper>
+
+
+
+
+
+
+

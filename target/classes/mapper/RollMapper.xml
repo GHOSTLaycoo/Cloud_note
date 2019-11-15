@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Dept.xml 在com.tarena.entity 包中  -->  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.cloud_note.dao.RollDao">
+	<select id="findById" parameterType="string" resultType="cn.tedu.cloud_note.entity.Note">
+		select * from cn_note where cn_user_id=#{userId} and cn_note_status_id='2'
+	</select>
+	<update id="updateNoteStatus" parameterType="map">
+		update cn_note 
+		set cn_notebook_id=#{bookId},cn_note_status_id="1" where cn_note_id=#{noteId}
+	</update>
+	
+	<delete id="deleteRollNote" parameterType="string">
+		delete from cn_note where cn_note_id = #{noteId};
+	</delete>
+</mapper>
+
+
+
+
+
+
+
